@@ -10,27 +10,14 @@ namespace LemonadeStand
     {
         public FileWriter() {}
         public void WriteToFile(Player player) {
-            System.IO.StreamWriter file = new System.IO.StreamWriter("SaveGame.txt", true);
+            System.IO.StreamWriter file = new System.IO.StreamWriter("SaveGame.txt");
 
-            file.WriteLine(player.Name + " " + player.CashBox.Money + " " + player.CashBox.Income + " " + player.CashBox.Expenses);
-            file.WriteLine(player.LemonadeStand.Inventory.Cups.Count + " " + player.LemonadeStand.Inventory.Ice.Count + " " + player.LemonadeStand.Inventory.Lemons.Count + " " + player.LemonadeStand.Inventory.Sugar.Count);
+            file.Write(player.Name + "+" + player.CashBox.Money + "+" + player.CashBox.Income + "+" + player.CashBox.Expenses + "+" + player.DaysPlayed + "+");
+            file.WriteLine(player.LemonadeStand.Inventory.Cups.Count + "+" + player.LemonadeStand.Inventory.Ice.Count + "+" + player.LemonadeStand.Inventory.Lemons.Count + "+" + player.LemonadeStand.Inventory.Sugar.Count);
 
             file.WriteLine();
 
             file.Close();
         }
-        /*
-         public void SaveStatsToFile(int numberOfPlayers) {
-            System.IO.StreamWriter file = new System.IO.StreamWriter("GameStats.txt", true);
-
-            for (int i = 0; i < numberOfPlayers; ++i)
-            {
-                file.WriteLine("{0}'s gold is now {1}", players[i].GetName(), players[i].GetMoney());
-            }
-            file.WriteLine();
-
-            file.Close();
-        }
-         */
     }
 }

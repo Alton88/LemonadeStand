@@ -14,71 +14,102 @@ namespace LemonadeStand
         Day day;
         int numberOfdays;
         FileWriter fileWriter;
-        
+        FileReader fileReader;        
         Pitcher pitcher;
         public Game() {
             players = new List<Player>();
             userInterface = new UserInterface();
             pitcher = new Pitcher("", 0);
-            numberOfdays = 1;
+            numberOfdays = 7;
             fileWriter = new FileWriter();
+            fileReader = new FileReader();
+            isComputerPlayer = false;
         }
         public void startGame() {
             int numberOfPlayers = userInterface.Menu();
-            Console.Write("Player 1 Please Enter Your Name ");
-            players.Add(new Human(Console.ReadLine()));
-            Console.Clear();
-            if (numberOfPlayers > 1) {
-                if (numberOfPlayers == 2)
-                {
-                    Console.Write("Player 2 Please Enter Your Name ");
-                    players.Add(new Human(Console.ReadLine()));
-                    Console.Clear();
-                }
-                else {
-                    players.Add(new Computer("Computer"));
-                    isComputerPlayer = true;
-                    numberOfPlayers = 2;
-                }
-            }
-                for (int i = 0; i < numberOfdays; ++i) {
-                    day = new Day();
-                    Console.WriteLine("Day {0}", i + 1);
-                    day.Count = i + 1;
-                    GamePlay(day, numberOfPlayers);
-                }
-            for (int i = 0; i < numberOfPlayers; ++i) {
-                userInterface.DisplayResults(players[i]);
-                Console.WriteLine("Stats will be saved to file, GOOD BYE!!!");
+            numberOfPlayers = numberOfPlayers < 4 ? UserLoginPrompt(numberOfPlayers): LoadSavedGame();
+            RunThroughDays(numberOfPlayers);
+            DisplayStats(numberOfPlayers);
+            SavePlayer1StatsToFile(numberOfPlayers);
+        }
+        public void SavePlayer1StatsToFile(int numberOfPlayers) {
+            if (numberOfPlayers == 1)
+            {
+                Console.WriteLine("\nStats will be saved to file, Good Bye!!!");
                 fileWriter.WriteToFile(players[0]);
             }
         }
-        public void GamePlay(Day day, int numberOfPlayers) {
-            int index = 0;
-            if (numberOfPlayers == 1 || isComputerPlayer) {
-                while (index < 1)
+        public void DisplayStats(int numberOfPlayers) {
+            Console.WriteLine("Total Days Played {0}", players[0].DaysPlayed - 1);
+            for (int i = 0; i < numberOfPlayers; ++i)
+            {
+                userInterface.DisplayResults(players[i]);
+            }
+        }
+        public void RunThroughDays(int numberOfPlayers) {
+            for (int i = 0; i < numberOfdays; ++i)
+            {
+                day = new Day();  
+                GamePlay(day, numberOfPlayers);     
+            }
+        }
+        public int LoadSavedGame() {
+            players.Add(new Human("SavedGame"));
+            SavedGameLoader getPlayerAttributes = new SavedGameLoader(players[0]);  
+            return 1;
+        }
+        
+        public int UserLoginPrompt(int numberOfPlayers) {
+            Console.Write("Player 1 Please Enter Your Name : ");
+            players.Add(new Human(Console.ReadLine()));
+            Console.Clear();
+            if (numberOfPlayers > 1)
+            {
+                if (numberOfPlayers == 2)
                 {
-                    userInterface.AskPlayerToBuyItems(players[index].LemonadeStand.Inventory, players[index], day);
-                    userInterface.PriceAndRecipe(day, players[index].LemonadeStand.Inventory, players[index]);
-                    ++index;
+                    Console.Write("Player 2 Please Enter Your Name : ");
+                    players.Add(new Human(Console.ReadLine()));
+                    Console.Clear();
+                    return numberOfPlayers;
+                }
+                else
+                {
+                    players.Add(new Computer("Computer"));
+                    isComputerPlayer = true;
+                    return 2;
                 }
             }
-            else if (numberOfPlayers == 2) {
-                    while (index < numberOfPlayers)
-                    {
-                        userInterface.AskPlayerToBuyItems(players[index].LemonadeStand.Inventory, players[index], day);
-                        userInterface.PriceAndRecipe(day, players[index].LemonadeStand.Inventory, players[index]);
-                        ++index;
-                    }
-                }   
-            if (isComputerPlayer) {
-                GetInventoryForComputer(players[1], day);
-                GetRecipeForComputer(day, players[1]);
+            else return 1;
+        }
+        public void GamePlay(Day day, int numberOfPlayers) {           
+            GetInventoryForPlayers(numberOfPlayers, day);
+            TransactionWithCustomer(numberOfPlayers);               
+            Console.Clear();
+            ResultsForTheDay(numberOfPlayers);
+            Console.Write("\nPress Enter to Continue:");
+            Console.ReadKey(); 
+            Console.Clear();
+        }
+        public void ResultsForTheDay(int numberOfPlayers) {
+            for (int i = 0; i < numberOfPlayers; ++i)
+            {
+                Console.WriteLine("\nToday's Forcast is {0} \nTemperature is {1}", day.Weather.ForcastForToday, day.Weather.Temperature);
+                if (players[i].LemonadeStand.IsSoldOut) { Console.WriteLine("\n{0}, Has Sold Out of Lemonade.", players[i].Name); }
+                Console.WriteLine("\n{0} Managed to Sell {1} Cups of Lemonade to {2} Potential Customers.", players[i].Name, players[i].LemonadeStand.AmountSold, day.Customers.Count);
+
+                players[i].LemonadeStand.AmountSold = 0;
             }
-            for (int i = 0; i < numberOfPlayers; ++i) {
-                for (int j = 0; j < day.Customers.Count; ++j) {
-                    if (!pitcher.IsEmpty()) {
-                        if (day.Customers[j].BuyLemonade(pitcher.Type, players[i].LemonadeStand)) {
+        }
+        public void TransactionWithCustomer(int numberOfPlayers) {
+            for (int i = 0; i < numberOfPlayers; ++i)
+            {
+                Console.WriteLine("Day {0}", players[i].DaysPlayed);
+                for (int j = 0; j < day.Customers.Count; ++j)
+                {
+                    if (!pitcher.IsEmpty())
+                    {
+                        if (day.Customers[j].BuyLemonade(pitcher.Type, players[i].LemonadeStand))
+                        {
                             --pitcher.CupsInPitcher;
                             players[i].CashBox.Money += players[i].LemonadeStand.PricePerCup;
                             players[i].CashBox.Income += players[i].LemonadeStand.PricePerCup;
@@ -86,41 +117,32 @@ namespace LemonadeStand
                             players[i].LemonadeStand.RemoveCupsFromInventory(1, players[i].LemonadeStand.Inventory);
                         }
                     }
-                    else {
-                        if (players[i].CheckForPitcherIngredientsInInventory(players[i].LemonadeStand.Inventory)) {
-                            pitcher = players[i].LemonadeStand.MakePitcher(players[i].LemonadeStand.Inventory, players[i]); }
+                    else
+                    {
+                        if (players[i].CheckForPitcherIngredientsInInventory(players[i].LemonadeStand.Inventory))
+                        {
+                            pitcher = players[i].LemonadeStand.MakePitcher(players[i].LemonadeStand.Inventory, players[i]);
+                        }
                         else players[i].LemonadeStand.IsSoldOut = true;
                     }
                 }
+                players[i].DaysPlayed += 1;
             }
-            Console.Clear();
-            for (int i = 0; i < numberOfPlayers; ++i) {
-                Console.WriteLine("\nToday's Forcast is {0} \nTemperature is {1}", day.Weather.ForcastForToday, day.Weather.Temperature);
-                if (players[i].LemonadeStand.IsSoldOut) { Console.WriteLine("\n{0}, Has Sold Out of Lemonade.", players[i].Name); }
-                Console.WriteLine("\n{0} Managed to Sell {1} Cups of Lemonade to {2} Potential Customers.",players[i].Name, players[i].LemonadeStand.AmountSold, day.Customers.Count);
-
-                players[i].LemonadeStand.AmountSold = 0;
+        }
+        public void GetInventoryForPlayers(int numberOfPlayers, Day day) {
+            for (int i = 0; i < numberOfPlayers; ++i)
+            {
+                if (!isComputerPlayer || i < 1)
+                {
+                    userInterface.AskPlayerToBuyItems(players[i].LemonadeStand.Inventory, players[i], day);
+                    userInterface.PriceAndRecipe(day, players[i].LemonadeStand.Inventory, players[i]);
+                }
+                else if (isComputerPlayer)
+                {
+                    players[1].GetInventoryForComputer(day);
+                    players[1].GetRecipeForComputer(day);
+                }
             }
-            Console.Write("\nPress Enter to Continue:");
-            Console.ReadKey(); 
-            Console.Clear();
-        }
-        public void GetInventoryForComputer(Player player, Day day) {
-            Store store = new Store();
-            if (player.LemonadeStand.Inventory.Cups.Count < 100) { store.CupCheckout(100, 3.23, player.LemonadeStand.Inventory, player); }
-            if (player.LemonadeStand.Inventory.Lemons.Count < 55) { store.LemonCheckout(75, 4.45, player.LemonadeStand.Inventory, player); }
-            if (player.LemonadeStand.Inventory.Sugar.Count < 55) { store.SugarCheckout(100, 3.41, player.LemonadeStand.Inventory, player); }
-            if (player.LemonadeStand.Inventory.Ice.Count < 500) { store.IceCheckout(500, 3.61, player.LemonadeStand.Inventory, player); }
-        }
-        public void GetRecipeForComputer(Day day, Player player) {
-            if (day.Weather.Temperature > 80) { player.LemonadeStand.PricePerCup = 0.80; }
-            else if (day.Weather.Temperature > 70) { player.LemonadeStand.PricePerCup = 0.70; }
-            else if (day.Weather.Temperature > 60) { player.LemonadeStand.PricePerCup = 0.60; }
-            else player.LemonadeStand.PricePerCup = 0.35;
-
-            player.LemonadeStand.LemonsPerPitcher = 5;
-            player.LemonadeStand.SugarPerPitcher = 5;
-            player.LemonadeStand.IcePerCup = 5;
-        }
+        }     
     }
 }

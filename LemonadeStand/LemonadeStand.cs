@@ -59,7 +59,6 @@ namespace LemonadeStand
             RemoveLemonsFromInventory(lemonsPerPitcher, inventory);
             RemoveSugarFromInventory(sugarPerPitcher, inventory);
             RemoveIceFromInventory(icePerCup * 12, inventory);
-            //RemoveCupsFromInventory(12, inventory);
             isSoldOut = false;
             return new Pitcher(DetermineType(), cupsPerPitcher);
         }

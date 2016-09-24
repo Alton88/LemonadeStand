@@ -11,12 +11,18 @@ namespace LemonadeStand
         string name;
         CashBox cashBox;
         LemonadeStand lemonadeStand;
+        int daysPlayed;
 
         public Player(string name) {
             this.name = name;
             cashBox = new CashBox();
             lemonadeStand = new LemonadeStand();
-        } 
+            daysPlayed = 1;
+        }
+        public virtual int DaysPlayed {
+            get { return daysPlayed; }
+            set { daysPlayed = value; }
+        }
         public virtual LemonadeStand LemonadeStand{
             get { return lemonadeStand; }
             set { lemonadeStand = value; }
@@ -38,5 +44,7 @@ namespace LemonadeStand
             else
                 return false;
         }
+        public virtual void GetInventoryForComputer(Day day) { }
+        public virtual void GetRecipeForComputer(Day day) { }
         }
     }

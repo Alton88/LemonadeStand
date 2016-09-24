@@ -12,6 +12,11 @@ namespace LemonadeStand
         {
             Game playGame = new Game();
             playGame.startGame();
+            //Player player = new Human("Buddy");
+            //FileReader f = new FileReader();
+            //f.ReadFileToAttributes(player);
+
+
             Console.Read();
         }
     }
