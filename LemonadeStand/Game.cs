@@ -83,7 +83,7 @@ namespace LemonadeStand
         }
         public void GamePlay(Day day, int numberOfPlayers) {           
             GetInventoryForPlayers(numberOfPlayers, day);
-            TransactionWithCustomer(numberOfPlayers);               
+            InteractionWithCustomer(numberOfPlayers);               
             Console.Clear();
             ResultsForTheDay(numberOfPlayers);
             Console.Write("\nPress Enter to Continue:");
@@ -100,7 +100,7 @@ namespace LemonadeStand
                 players[i].LemonadeStand.AmountSold = 0;
             }
         }
-        public void TransactionWithCustomer(int numberOfPlayers) {
+        public void InteractionWithCustomer(int numberOfPlayers) {
             for (int i = 0; i < numberOfPlayers; ++i)
             {
                 Console.WriteLine("Day {0}", players[i].DaysPlayed);

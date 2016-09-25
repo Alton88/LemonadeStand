@@ -11,7 +11,6 @@ namespace LemonadeStand
         double money;
         double income;
         double expenses;
-        double inventoryValue;
         double netProfit;
 
         public CashBox(){
@@ -28,10 +27,6 @@ namespace LemonadeStand
         public double Expenses{
             get { return expenses; }
             set { expenses = value; }
-        }
-        public double InventoryValue{
-            get { return inventoryValue; }
-            set { inventoryValue = value; }
         }
         public double NetProfit{
             get { return income - expenses; }
