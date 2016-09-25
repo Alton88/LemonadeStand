@@ -82,10 +82,12 @@ namespace LemonadeStand
         public void PriceAndRecipe(Day day, Inventory inventory, Player player) {
             Console.Clear();
             int choice = 0;
-            PriceMenu(day, player);
-            Console.Write("{0}, Enter Price per Cup (1 - 100) : ", player.Name);
+            
             while (choice < 1 || choice > 100)
             {
+                Console.Clear();
+                PriceMenu(day, player);
+                Console.Write("{0}, Enter Price per Cup (1 - 100) : ", player.Name);
                 try
                 {
                     choice = Convert.ToInt32(Console.ReadLine());
@@ -95,10 +97,12 @@ namespace LemonadeStand
                 Console.Clear();
             }
             choice = 0;
-            PriceMenu(day, player);
-            Console.Write("{0}, Enter Lemons per Pitcher (1 - 10) : ", player.Name);
+            
             while (choice < 1 || choice > 10)
             {
+                Console.Clear();
+                PriceMenu(day, player);
+                Console.Write("{0}, Enter Lemons per Pitcher (1 - 10) : ", player.Name);
                 try
                 {
                     choice = Convert.ToInt32(Console.ReadLine());
@@ -108,9 +112,11 @@ namespace LemonadeStand
                 Console.Clear();
             }
             choice = 0;
-            PriceMenu(day, player);
-            Console.Write("{0}, Enter Sugar per Pitcher (1 - 10) : ", player.Name);
+            
             while (choice < 1 || choice > 10){
+                Console.Clear();
+                PriceMenu(day, player);
+                Console.Write("{0}, Enter Sugar per Pitcher (1 - 10) : ", player.Name);
                 try {
                     choice = Convert.ToInt32(Console.ReadLine());
                     player.LemonadeStand.SugarPerPitcher = choice;
@@ -123,6 +129,9 @@ namespace LemonadeStand
             Console.Write("{0}, Enter Ice per Cup (1 - 10) : ", player.Name);
             while (choice < 1 || choice > 10)
             {
+                Console.Clear();
+                PriceMenu(day, player);
+                Console.Write("{0}, Enter Ice per Cup (1 - 10) : ", player.Name);
                 try {
                     choice = Convert.ToInt32(Console.ReadLine());
                     player.LemonadeStand.IcePerCup = choice;
