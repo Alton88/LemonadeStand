@@ -25,7 +25,7 @@ namespace LemonadeStand
             fileReader = new FileReader();
             isComputerPlayer = false;
         }
-        public void startGame() {
+        public void StartGame() {
             int numberOfPlayers = userInterface.Menu();
             numberOfPlayers = numberOfPlayers < 4 ? UserLoginPrompt(numberOfPlayers): LoadSavedGame();
             RunThroughDays(numberOfPlayers);

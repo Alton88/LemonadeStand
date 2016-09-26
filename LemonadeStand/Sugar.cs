@@ -13,5 +13,5 @@ namespace LemonadeStand
             get { return hasBugs; }
             set { hasBugs = value; }
         }
-    }//End of class
+    }
 }

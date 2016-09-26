@@ -15,5 +15,5 @@ namespace LemonadeStand
             get { return spoiled; }
             set { spoiled = value; }
         }
-    }//End of class
+    }
 }

@@ -10,11 +10,11 @@ namespace LemonadeStand
     {
         List<Customer> customers;
         Weather weather;
-        Random rng;
+        Random randomizer;
         List<string> customerPreference;
         int count;
         public Day() {
-            rng = new Random();
+            randomizer = new Random();
             customers = new List<Customer>();
             weather = new Weather();
             customerPreference = new List<string>(){"Balanced", "Tart", "Sweet"};
@@ -30,7 +30,7 @@ namespace LemonadeStand
         }
         public void CreateCustomers(){
             for (int i = 0; i < 100; ++i){
-                customers.Add(new Customer(rng.Next(50, 90), weather, customerPreference[rng.Next(0,3)]));
+                customers.Add(new Customer(randomizer.Next(50, 90), weather, customerPreference[randomizer.Next(0,3)]));
             }
         }
         public Weather Weather {

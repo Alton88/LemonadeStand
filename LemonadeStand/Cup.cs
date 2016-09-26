@@ -8,5 +8,5 @@ namespace LemonadeStand
 {
     class Cup{
         public Cup() { }
-    }//End of class
+    }
 }
