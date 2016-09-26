@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LemonadeStand
 {
     class Lemon{
-        bool spoiled;
+        private bool spoiled;
         public Lemon() {
 
         }

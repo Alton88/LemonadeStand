@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace LemonadeStand
 {
     class Pitcher {
-        int cupsInPitcher;
-        string type; 
+        private int cupsInPitcher;
+        private string type; 
         
         public Pitcher(string type, int cupsInPitcher) {
             this.cupsInPitcher = cupsInPitcher;

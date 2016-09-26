@@ -8,11 +8,11 @@ namespace LemonadeStand
 {
     class Day
     {
-        List<Customer> customers;
-        Weather weather;
-        Random randomizer;
-        List<string> customerPreference;
-        int count;
+        private List<Customer> customers;
+        private Weather weather;
+        private Random randomizer;
+        private List<string> customerPreference;
+        private int count;
         public Day() {
             randomizer = new Random();
             customers = new List<Customer>();

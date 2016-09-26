@@ -8,9 +8,9 @@ namespace LemonadeStand
 {
     class SavedGameLoader
     {
-        FileReader fileReader;
-        string[] savedData;
-        Player player;
+        private FileReader fileReader;
+        private string[] savedData;
+        private Player player;
         public SavedGameLoader(Player player) {
             fileReader = new FileReader();
             savedData = fileReader.ReadFileToAttributes();

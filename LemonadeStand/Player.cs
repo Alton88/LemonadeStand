@@ -8,10 +8,10 @@ namespace LemonadeStand
 {
     abstract class Player
     {
-        string name;
-        CashBox cashBox;
-        LemonadeStand lemonadeStand;
-        int daysPlayed;
+        private string name;
+        private CashBox cashBox;
+        private LemonadeStand lemonadeStand;
+        private int daysPlayed;
 
         public Player(string name) {
             this.name = name;

@@ -8,14 +8,14 @@ namespace LemonadeStand
 {
     class Game
     {
-        List <Player> players;
-        UserInterface userInterface;
-        bool isComputerPlayer;
-        Day day;
-        int numberOfdays;
-        FileWriter fileWriter;
-        FileReader fileReader;        
-        Pitcher pitcher;
+        private List<Player> players;
+        private UserInterface userInterface;
+        private bool isComputerPlayer;
+        private Day day;
+        private int numberOfdays;
+        private FileWriter fileWriter;
+        private FileReader fileReader;
+        private Pitcher pitcher;
         public Game() {
             players = new List<Player>();
             userInterface = new UserInterface();

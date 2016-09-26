@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace LemonadeStand
 {
     class Store{
-        double[] lemonPrices;
-        double[] sugarPrices;
-        double[] icePrices;
-        double[] cupPrices;
-        int[] deals;
+        private double[] lemonPrices;
+        private double[] sugarPrices;
+        private double[] icePrices;
+        private double[] cupPrices;
+        private int[] deals;
         public Store() {
             lemonPrices = new double[3] {0.61, 2.45, 4.45};
             sugarPrices = new double[3] { 0.61, 1.56, 3.41 };

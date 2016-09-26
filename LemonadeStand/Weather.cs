@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 namespace LemonadeStand
 {    class Weather
     {
-        static Random randomizer;
-        int temperature;
-        List<string> forcast;
-        string forcastForToday;
+        private static Random randomizer;
+        private int temperature;
+        private List<string> forcast;
+        private string forcastForToday;
         public Weather() {
             randomizer = new Random();
             temperature = randomizer.Next(50, 100);

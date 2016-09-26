@@ -8,10 +8,10 @@ namespace LemonadeStand
 {
     class Inventory
     {
-        List<Lemon> lemons;
-        List<Sugar> sugar;
-        List<Ice> ice;
-        List<Cup> cups;
+        private List<Lemon> lemons;
+        private List<Sugar> sugar;
+        private List<Ice> ice;
+        private List<Cup> cups;
 
         public Inventory()
         {

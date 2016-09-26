@@ -8,9 +8,9 @@ namespace LemonadeStand
 {
     class UserInterface
     {
-        Store store;
+        private Store store;
         public UserInterface() { store = new Store(); }
-        public int Menu() {          
+        public int Menu() {
             int numberOfPlayers = 0;
 
             while (numberOfPlayers < 1 || numberOfPlayers > 4)
@@ -34,6 +34,7 @@ namespace LemonadeStand
             }
             return numberOfPlayers;
         }
+    
         public void AskPlayerToBuyItems(Inventory inventory, Player player, Day day) {
             Console.Clear();
             int choice = 0;

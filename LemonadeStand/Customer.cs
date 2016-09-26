@@ -8,10 +8,10 @@ namespace LemonadeStand
 {
     class Customer
     {
-        static Random randomizer;
-        double initalInterest; 
-        Weather weather;
-        string preference;
+        private static Random randomizer;
+        private double initalInterest;
+        private Weather weather;
+        private string preference;
         public Customer(int initalInterest, Weather weather, string preference){
             this.initalInterest = initalInterest;
             this.weather = weather;

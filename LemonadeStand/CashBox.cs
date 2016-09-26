@@ -8,10 +8,10 @@ namespace LemonadeStand
 {
     class CashBox
     {
-        double money;
-        double income;
-        double expenses;
-        double netProfit;
+        private double money;
+        private double income;
+        private double expenses;
+        private double netProfit;
 
         public CashBox(){
             money = 20;

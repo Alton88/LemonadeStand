@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LemonadeStand
 {
     class Sugar {
-        bool hasBugs;
+        private bool hasBugs;
         public Sugar() {}
         public bool HasBugs{
             get { return hasBugs; }

@@ -8,14 +8,14 @@ namespace LemonadeStand
 {
     class LemonadeStand
     {
-        double pricePerCup;
-        int lemonsPerPitcher;
-        int sugarPerPitcher;
-        int icePerCup;
-        int cupsPerPitcher;
-        int amountSold;
-        bool isSoldOut;
-        Inventory inventory;
+        private double pricePerCup;
+        private int lemonsPerPitcher;
+        private int sugarPerPitcher;
+        private int icePerCup;
+        private int cupsPerPitcher;
+        private int amountSold;
+        private bool isSoldOut;
+        private Inventory inventory;
 
         public LemonadeStand() {
             cupsPerPitcher = 12;

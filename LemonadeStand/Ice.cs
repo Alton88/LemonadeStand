@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LemonadeStand
 {
     class Ice {
-        bool melted; 
+        private bool melted; 
         public Ice() {}
         public bool Melted {
             get { return melted; }
